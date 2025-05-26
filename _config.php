@@ -1,5 +1,5 @@
 <?php 
-$conn = mysqli_connect("localhost", 'root' , '', "anime") or die("Connection fail");
+$conn = mysqli_connect("localhost", 'root' , '', "anime", 3307) or die("Connection fail"); // port can be used as 3306/3307 as per preferences
 
 
 $websiteTitle = "Zoro";
@@ -13,7 +13,7 @@ $discord = "https://dsc.gg/kirixen";
 $github = "https://github.com/kirixen";
 $twitter = "https://x.com/KiriX3n";
  
-$disqus = "https://.disqus.com/embed.js";
+$disqus = "https://.disqus.com/embedd.js";
 $api = "https://.vercel.app"; 
 
 $banner = $websiteUrl . "/files/images/banner.png";
