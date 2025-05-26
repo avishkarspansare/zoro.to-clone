@@ -1,22 +1,53 @@
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^(([A-Za-z0-9\-]+/)*[A-Za-z0-9\-]+)?$ $1.php
+
+# RewriteRule ^anime/([a-zA-Z0-9-=_]+) animeDetails.php
+# RewriteRule ^watch/([a-zA-Z0-9-=_]+) streaming.php
+
+# RewriteRule ^sub-category/([a-zA-Z0-9-=_]+) sub-category/id.php
+# RewriteRule ^genre/([a-zA-Z0-9-=_]+) genre/id.php
+# RewriteRule ^az-list/([A-Z]) az-list/id.php
+
+
+# RewriteRule ^sitemaps/recentCN-sitemap.xml sitemaps/recentCN-sitemap.php
+# RewriteRule ^sitemaps/recentDUB-sitemap.xml sitemaps/recentDUB-sitemap.php
+# RewriteRule ^sitemaps/recentSUB-sitemap.xml sitemaps/recentSUB-sitemap.php
+# RewriteRule ^sitemaps/ongoing-sitemap.xml sitemaps/ongoing-sitemap.php
+# RewriteRule ^sitemaps/allanime-sitemap.xml sitemaps/allanime-sitemap.php
+# RewriteRule ^sitemaps/sitemap.xml sitemaps/sitemap.php
+# RewriteRule ^sitemap.xml sitemap.php
+
+# ErrorDocument 404 /404.php
+
+
+# Enable rewriting and set the base URL for this folder
 RewriteEngine On
+RewriteBase /zoro.to-clone/
+
+# If the request is not for an existing directory or file, try appending .php
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(([A-Za-z0-9\-]+/)*[A-Za-z0-9\-]+)?$ $1.php
+RewriteRule ^(([A-Za-z0-9\-]+/)*[A-Za-z0-9\-]+)?$ $1.php [L,QSA]
 
-RewriteRule ^anime/([a-zA-Z0-9-=_]+) animeDetails.php
-RewriteRule ^watch/([a-zA-Z0-9-=_]+) streaming.php
+# Pretty-URL rules for anime pages
+RewriteRule ^anime/([A-Za-z0-9\-=_]+)$ animeDetails.php?slug=$1 [L,QSA]
+RewriteRule ^watch/([A-Za-z0-9\-=_]+)$ streaming.php?slug=$1 [L,QSA]
 
-RewriteRule ^sub-category/([a-zA-Z0-9-=_]+) sub-category/id.php
-RewriteRule ^genre/([a-zA-Z0-9-=_]+) genre/id.php
-RewriteRule ^az-list/([A-Z]) az-list/id.php
+# Sub-category, genre, and A–Z lists
+RewriteRule ^sub-category/([A-Za-z0-9\-=_]+)$ sub-category/id.php?cat=$1 [L,QSA]
+RewriteRule ^genre/([A-Za-z0-9\-=_]+)$ genre/id.php?genre=$1 [L,QSA]
+RewriteRule ^az-list/([A-Z])$ az-list/id.php?letter=$1 [L,QSA]
 
+# Sitemap XML rewrites
+RewriteRule ^sitemaps/recentCN-sitemap\.xml$ sitemaps/recentCN-sitemap.php [L,QSA]
+RewriteRule ^sitemaps/recentDUB-sitemap\.xml$ sitemaps/recentDUB-sitemap.php [L,QSA]
+RewriteRule ^sitemaps/recentSUB-sitemap\.xml$ sitemaps/recentSUB-sitemap.php [L,QSA]
+RewriteRule ^sitemaps/ongoing-sitemap\.xml$ sitemaps/ongoing-sitemap.php [L,QSA]
+RewriteRule ^sitemaps/allanime-sitemap\.xml$ sitemaps/allanime-sitemap.php [L,QSA]
+RewriteRule ^sitemaps/sitemap\.xml$          sitemaps/sitemap.php [L,QSA]
+RewriteRule ^sitemap\.xml$                  sitemap.php [L,QSA]
 
-RewriteRule ^sitemaps/recentCN-sitemap.xml sitemaps/recentCN-sitemap.php
-RewriteRule ^sitemaps/recentDUB-sitemap.xml sitemaps/recentDUB-sitemap.php
-RewriteRule ^sitemaps/recentSUB-sitemap.xml sitemaps/recentSUB-sitemap.php
-RewriteRule ^sitemaps/ongoing-sitemap.xml sitemaps/ongoing-sitemap.php
-RewriteRule ^sitemaps/allanime-sitemap.xml sitemaps/allanime-sitemap.php
-RewriteRule ^sitemaps/sitemap.xml sitemaps/sitemap.php
-RewriteRule ^sitemap.xml sitemap.php
-
-ErrorDocument 404 /404.php
+# Custom 404 page
+ErrorDocument 404 /zoro.to-clone/404.php
